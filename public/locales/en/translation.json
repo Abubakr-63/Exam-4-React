@@ -1,0 +1,74 @@
+{
+  "header": {
+    "logoAlt": "Karapuz — kids store",
+    "catalog": "Catalog",
+    "searchPlaceholder": "I want to buy...",
+    "searchButton": "Search",
+    "login": "Sign in",
+    "cart": "Cart",
+    "tagline": {
+      "line1": "Online hypermarket",
+      "line2": "of kids' products"
+    },
+    "nav": {
+      "promotions": "Promotions",
+      "about": "About us",
+      "blog": "Blog",
+      "wholesale": "Wholesale",
+      "returns": "Returns",
+      "shipping": "Shipping & payment",
+      "contacts": "Contacts"
+    },
+    "city": "City",
+    "cityValue": "Moscow",
+    "loginDialog": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?"
+    },
+    "account": {
+      "title": "My account",
+      "name": "Anna",
+      "email": "annaannnnanana@gmail.com",
+      "orders": "My orders",
+      "favorites": "My favorites",
+      "settings": "Account settings",
+      "logout": "Sign out"
+    },
+    "catalogMenu": {
+      "furniture": "Kids' furniture",
+      "strollers": "Strollers",
+      "carSeats": "Car seats",
+      "clothing": "Clothing",
+      "feeding": "Feeding",
+      "hygiene": "Hygiene & care",
+      "smartToys": "Smart toys"
+    }
+  },
+  "body" : {
+    "sec1" : {
+      "text" : "Every thing what needs for the child",
+      "text2" : "Watch our sugestion how to look at the child",
+      "button" : "Watch"
+    }
+  },
+
+  "card": {
+    "products": {
+      "stroller": {
+        "title": "CYBEX PRIAM LUX JEREMY SCOTT SPECIAL EDITION 2-in-1 Stroller on TREKKING Frame",
+        "price": "152,000 ₽"
+      },
+      "knitwear": {
+        "title": "Papitto Lined Knitted Set: Hooded Jumper and Trousers (2 Pieces)",
+        "price": "1,600 ₽"
+      }
+    },
+    "buttons": {
+      "add_to_cart": "Add to Cart",
+      "one_click_buy": "Buy in 1 Click"
+    }
+  }
+}

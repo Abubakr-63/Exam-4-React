@@ -1,0 +1,74 @@
+{
+  "header": {
+    "logoAlt": "Карапуз — детский магазин",
+    "catalog": "Каталог товаров",
+    
+    "searchPlaceholder": "Я хочу купить...",
+    "searchButton": "Найти",
+    "login": "Войти в личный кабинет",
+    "cart": "Корзина",
+    "tagline": {
+      "line1": "Онлайн гипермаркет",
+      "line2": "товаров для детей"
+    },
+    "nav": {
+      "promotions": "Акции",
+      "about": "О нас",
+      "blog": "Блог",
+      "wholesale": "Оптовым клиентам",
+      "returns": "Возврат",
+      "shipping": "Оплата и доставка",
+      "contacts": "Контакты"
+    },
+    "city": "Город",
+    "cityValue": "Москва",
+    "loginDialog": {
+      "title": "Регистрация",
+      "email": "Электронный адрес",
+      "password": "Пароль",
+      "submit": "Войти",
+      "forgotPassword": "Забыли пароль?"
+    },
+    "account": {
+      "title": "Личный кабинет",
+      "name": "Анна",
+      "email": "annaannnnanana@gmail.com",
+      "orders": "Мои заказы",
+      "favorites": "Мое избранное",
+      "settings": "Настройки личных данных",
+      "logout": "Выйти"
+    },
+    "catalogMenu": {
+      "furniture": "Детская мебель",
+      "strollers": "Коляски",
+      "carSeats": "Автокресла",
+      "clothing": "Одежда",
+      "feeding": "Кормление",
+      "hygiene": "Гигиена и уход",
+      "smartToys": "Умные игрушки"
+    }
+  },
+  "body" : {
+    "sec1" : {
+      "text" : "Все самое необходимое для вашего ребенка",
+      "text2" : "Посмотрите нашу новую подборку для ухода за вашим ребенком",
+      "button" : "Смотреть"
+    }
+  },
+  "card": {
+    "products": {
+      "stroller": {
+        "title": "Коляска CYBEX PRIAM LUX JEREMY SCOTT SPECIAL EDITION 2 В 1 на раме TREKKING",
+        "price": "152 000 ₽"
+      },
+      "knitwear_set": {
+        "title": "Папитто Комплект вязаный на подкладке джемпер с капюшоном и брюки 2 предмета",
+        "price": "1 600 ₽"
+      }
+    },
+    "buttons": {
+      "add_to_cart": "В корзину",
+      "one_click_buy": "Купить в один клик"
+    }
+  }
+}
