@@ -2,10 +2,11 @@ import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { reducer } from '../reducer/todo';
 import { API } from '../backend/api';
-import { useNavigate } from 'react-router';
+import { useNavigate, useOutletContext } from 'react-router';
 
 export default function CatalogWithFilters() {
     const navigate = useNavigate()
+    const { addToCart } = useOutletContext();
   const [products, dispatch] = useReducer(reducer, {data : []});
   const [length, setLength] = useState(12)
 
@@ -256,7 +257,7 @@ export default function CatalogWithFilters() {
                     )}
                   </div>
 
-                  <button className="w-full py-2 bg-sky-400 hover:bg-sky-500 text-white rounded-lg text-xs font-medium transition-colors mb-2">
+                  <button onClick={(event) => { event.stopPropagation(); addToCart(product); }} className="w-full py-2 bg-sky-400 hover:bg-sky-500 text-white rounded-lg text-xs font-medium transition-colors mb-2">
                     В корзину
                   </button>
                   <button className="text-[11px] text-slate-400 hover:underline">

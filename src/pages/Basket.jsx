@@ -1,20 +1,25 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Heart, Trash2, Truck } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useOutletContext } from 'react-router';
 import axios from 'axios';
 import { idProducts } from '../backend/api';
 import { reducer } from '../reducer/todo';
 
 export default function Basket() {
   const navigate = useNavigate();
+  const { setCount } = useOutletContext();
   const [data, dispatch] = useReducer(reducer, {data : []});
-  const [cnt, setCnt] = useState(1)
+  const [quantities, setQuantities] = useState({});
 
 
   async function getAddedProducts() {
     try {
       const {data} = await axios.get(idProducts)
       dispatch({type : 'fetch', payload : data});
+      setQuantities((previous) => data.reduce((result, item) => ({
+        ...result,
+        [item.id]: previous[item.id] || 1,
+      }), {}));
     } catch (error) {
       console.log(error)
     }
@@ -23,17 +28,13 @@ export default function Basket() {
   async function deletProduct(id) {
     try {
       await axios.delete(`${idProducts}/${id}`);
+      setCount((prev) => Math.max(0, prev - 1));
       getAddedProducts();
     } catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(() => {
-    if(cnt < 1){
-      setCnt(1)
-    }
-  }, [cnt])
   useEffect(() => {
     getAddedProducts();
   }, [])
@@ -68,13 +69,19 @@ export default function Basket() {
                 <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
                   
                   <div className="flex items-center border border-[#94a3b8]/40 rounded-lg px-3 py-1 space-x-3 text-[#2a5b6e]">
-                    <button onClick={() => setCnt(cnt - 1)} className="text-lg leading-none hover:text-[#62c0e8] transition-colors focus:outline-none select-none">
+                    <button onClick={() => setQuantities((previous) => ({
+                      ...previous,
+                      [item.id]: Math.max(1, (previous[item.id] || 1) - 1),
+                    }))} className="text-lg leading-none hover:text-[#62c0e8] transition-colors focus:outline-none select-none">
                       —
                     </button>
                     <span className="text-sm font-medium w-4 text-center select-none">
-                      {cnt}
+                      {quantities[item.id] || 1}
                     </span>
-                    <button onClick={() => setCnt(cnt + 1)} className="text-lg leading-none hover:text-[#62c0e8] transition-colors focus:outline-none select-none">
+                    <button onClick={() => setQuantities((previous) => ({
+                      ...previous,
+                      [item.id]: (previous[item.id] || 1) + 1,
+                    }))} className="text-lg leading-none hover:text-[#62c0e8] transition-colors focus:outline-none select-none">
                       +
                     </button>
                   </div>

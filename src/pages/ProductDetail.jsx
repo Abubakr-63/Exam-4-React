@@ -2,12 +2,13 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { reducer } from '../reducer/todo';
 import axios from 'axios';
 import { API } from '../backend/api';
-import { useParams } from 'react-router';
+import { useParams, useOutletContext } from 'react-router';
 
 export default function ProductDetail() {
   const [activeTab, setActiveTab] = useState('description');
   const [data, dispatch] = useReducer(reducer, {data : []});
   const {id} = useParams()
+  const { addToCart } = useOutletContext();
   async function getProduct() {
     try {
       const {data: products} = await axios.get(API);
@@ -143,7 +144,7 @@ export default function ProductDetail() {
             <button className="px-6 py-3 bg-sky-400 hover:bg-sky-500 text-white rounded-xl text-sm font-medium transition-colors">
               Быстрый заказ
             </button>
-            <button className="px-6 py-3 border border-sky-400 text-sky-500 hover:bg-sky-50 rounded-xl text-sm font-medium transition-colors">
+            <button disabled={!data.data} onClick={() => data.data && addToCart(data.data)} className="px-6 py-3 border border-sky-400 text-sky-500 hover:bg-sky-50 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               В корзину
             </button>
           </div>

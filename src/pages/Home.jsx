@@ -18,14 +18,14 @@ import mask1 from "../assets/maskGroup/Mask Group (1).png"
 import { useEffect, useReducer, useState } from "react";
 import { reducer } from "../reducer/todo";
 import axios from "axios";
-import { API, idProducts } from "../backend/api";
+import { API } from "../backend/api";
 import group1 from "../assets/groups-Name/cybex-removebg-preview 1.png"
 import group2 from "../assets/groups-Name/Erbesi-Logo-removebg-preview 1.png";
 import vector from "../assets/vector/Vector.svg"
 import Vector from "../components/vector";
 import { useOutletContext } from "react-router";
 export default function Home() {
-    const {count, setCount} = useOutletContext()
+  const { addToCart } = useOutletContext()
     const [data, dispatch] = useReducer(reducer, {data : []});
     const chunkSize = 4;
     const chunks = [];
@@ -45,14 +45,6 @@ export default function Home() {
     useEffect(() => {
         getUsers()
     }, []);
-    async function addProductId(elem) {
-      setCount((prev) => prev + 1);
-      try {
-        await axios.post(idProducts, elem);
-      } catch (error) {
-        console.log(error)
-      }
-    }
     const {t, i18n} = useTranslation()
   return (
     <>
@@ -172,8 +164,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:p-0 p-5 items-center gap-5">
             {chunk.map(elem => (
                 <CardV3 key={elem.id} onClick={() => {
-                  addProductId(elem);
-                  console.log(elem)
+                  addToCart(elem);
                 }} img={elem.image} price={elem.price} text={elem.name} />
             ))}
         </div>
@@ -197,7 +188,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row p-5 items-center gap-5">
             {chunk.map(elem => (
                 <CardV3 key={elem.id} onClick={() => {
-                  addProductId(elem);
+                  addToCart(elem);
                 }} img={elem.image} price={elem.price} text={elem.name} />
             ))}
         </div>

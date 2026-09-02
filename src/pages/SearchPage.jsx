@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSearchParams } from 'react-router'
-import { useNavigate } from 'react-router'
+import { useNavigate, useOutletContext } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { API } from '../backend/api'
 
 export default function SearchPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { addToCart } = useOutletContext();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('search')?.trim() || '';
   const [products, setProducts] = useState([]);
@@ -83,6 +84,9 @@ export default function SearchPage() {
                 </div>
               )}
             </div>
+            <button onClick={(event) => { event.stopPropagation(); addToCart(product); }} className="w-full mt-4 py-2 bg-sky-400 hover:bg-sky-500 text-white rounded-lg text-xs">
+              {t('card.buttons.add_to_cart')}
+            </button>
           </article>
         ))}
       </div>

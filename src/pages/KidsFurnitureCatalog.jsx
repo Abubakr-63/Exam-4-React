@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { reducer } from '../reducer/todo';
 import axios from 'axios';
 import { API } from '../backend/api';
-import { useNavigate } from 'react-router';
+import { useNavigate, useOutletContext } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 const MAIN_PRODUCTS = [
@@ -66,6 +66,7 @@ const CATEGORIES = [
 
 export default function KidsFurnitureCatalog() {
   const { t } = useTranslation();
+  const { addToCart } = useOutletContext();
   const [length, setLength] = useState(12)
   const navigate = useNavigate();
   const [data, dispatch] = useReducer(reducer, {data : []});
@@ -130,7 +131,7 @@ export default function KidsFurnitureCatalog() {
                     <span className="text-base font-bold text-slate-800">{product.price}$</span>
                   </div>
 
-                  <button className="w-full py-2 bg-sky-400 hover:bg-sky-500 text-white rounded-lg text-xs font-medium transition-colors mb-2">
+                  <button onClick={() => addToCart(product)} className="w-full py-2 bg-sky-400 hover:bg-sky-500 text-white rounded-lg text-xs font-medium transition-colors mb-2">
                     В корзину
                   </button>
                   <button className="text-[11px] text-slate-400 hover:underline">
