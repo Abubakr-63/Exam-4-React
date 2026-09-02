@@ -4,6 +4,10 @@
     "catalog": "Catalog",
     "searchPlaceholder": "I want to buy...",
     "searchButton": "Search",
+    "languages": {
+      "en": "English",
+      "ru": "Russian"
+    },
     "login": "Sign in",
     "cart": "Cart",
     "tagline": {
@@ -26,6 +30,8 @@
       "email": "Email",
       "password": "Password",
       "submit": "Sign in",
+      "error": "Enter your email and password.",
+      "invalidEmail": "Enter a valid email address.",
       "forgotPassword": "Forgot your password?"
     },
     "account": {
@@ -55,6 +61,48 @@
     }
   },
 
+  "search": {
+    "results": "Search results",
+    "loading": "Loading...",
+    "empty": "Nothing found",
+    "details": {
+      "sku": "SKU",
+      "category": "Category",
+      "brand": "Brand",
+      "country": "Country",
+      "color": "Color",
+      "material": "Material",
+      "pendulum": "Pendulum",
+      "drawer": "Drawer",
+      "yes": "Yes",
+      "no": "No",
+      "description": "Description",
+      "features": "Features",
+      "reviews": "Reviews"
+    }
+  },
+  "common": {
+    "home": "Home"
+  },
+  "register": {
+    "title": "Registration",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "captcha": "Enter captcha",
+    "agreement": "I agree to the",
+    "terms": "user agreement",
+    "and": "and",
+    "privacy": "privacy policy",
+    "submit": "Register"
+  },
+  "reset": {
+    "title": "Password recovery",
+    "email": "Your email address",
+    "submit": "Recover password"
+  },
+
   "card": {
     "products": {
       "stroller": {
@@ -68,7 +116,24 @@
     },
     "buttons": {
       "add_to_cart": "Add to Cart",
-      "one_click_buy": "Buy in 1 Click"
+      "one_click_buy": "Buy in 1 Click",
+      "favorite": "Add to favorites",
+      "productImage": "Product image"
+    },
+    "category": {
+      "furniture": "Kids'",
+      "furnitureType": "furniture",
+      "brands": "Baby Expert, Baby Italia and more."
     }
+  },
+  "footer": {
+    "about": "About us",
+    "promotions": "Promotions",
+    "blog": "Blog",
+    "contacts": "Contacts",
+    "returns": "Returns and warranty",
+    "shipping": "Shipping and payment",
+    "wholesale": "Wholesale customers",
+    "social": "Follow us on social media"
   }
 }

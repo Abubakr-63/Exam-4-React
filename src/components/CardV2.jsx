@@ -1,6 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 export default function CardV2({img, button, bg}) {
+  const { t } = useTranslation();
   return (
     <section className={`w-full ${bg} rounded-[28px] p-8 sm:p-10 md:p-12 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden group`}>
           
@@ -9,14 +11,12 @@ export default function CardV2({img, button, bg}) {
             <div className="sm:col-span-6 flex flex-col items-start justify-between space-y-5 sm:space-y-6 z-10">
               
               <h2 className="text-2xl sm:text-3xl md:text-[32px] font-bold text-[#235D74] leading-[1.15] tracking-tight">
-                Детская <br />
-                мебель
+                {t('card.category.furniture')} <br />
+                {t('card.category.furnitureType')}
               </h2>
 
               <p className="text-[#326B83] text-sm sm:text-base md:text-[17px] leading-snug font-normal">
-                Baby Expert, <br />
-                Baby Italia и <br />
-                др.
+                {t('card.category.brands')}
               </p>
 
               <div className="pt-2">
@@ -34,7 +34,7 @@ export default function CardV2({img, button, bg}) {
               <div className="relative w-full flex items-center justify-center">
                 <img
                   src={img}
-                  alt="Детская кроватка мебель"
+                  alt={t('card.buttons.productImage')}
                   className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </div>

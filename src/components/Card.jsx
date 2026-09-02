@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function Card({description, price, img}) {
     const [isFavorite, setIsFavorite] = useState(false);
+  const { t } = useTranslation();
     const handleAddToCart = () => {
     setCartCount((prev) => prev + 1);
     setShowToast(true);
@@ -16,7 +17,7 @@ export default function Card({description, price, img}) {
           <button
             onClick={() => setIsFavorite(!isFavorite)}
             className="absolute top-6 right-6 sm:top-8 sm:right-8 p-2 rounded-full hover:bg-slate-50 transition-colors z-10 group"
-            aria-label="Добавить в избранное"
+            aria-label={t('card.buttons.favorite')}
           >
             <svg
               className={`w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-200 active:scale-125 ${
@@ -67,7 +68,7 @@ export default function Card({description, price, img}) {
               <div className="relative w-full sm:max-w-[320px] aspect-square flex items-center justify-center">
                 <img
                   src={img}
-                  alt="Коляска CYBEX PRIAM LUX"
+                  alt={t('card.buttons.productImage')}
                   className="w-full h-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </div>

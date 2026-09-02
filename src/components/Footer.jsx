@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from "../assets/Mask Group.png";
+import { useTranslation } from 'react-i18next';
 
 const VkIcon = () => (
   <svg 
@@ -16,6 +17,7 @@ const VkIcon = () => (
 );
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
       <footer className="w-full bg-[#f8fbfd] border-t border-slate-100 py-10 text-[#4a7795] font-sans">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -27,23 +29,23 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col space-y-3">
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">О нас</a>
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Акции</a>
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Блог</a>
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Контакты</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.about')}</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.promotions')}</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.blog')}</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.contacts')}</a>
             </div>
 
             <div className="flex flex-col space-y-3">
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Вовзрат и гарантия</a>
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Оплата и доставка</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.returns')}</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.shipping')}</a>
             </div>
 
             <div className="flex flex-col space-y-3">
-              <a href="#" className="hover:text-[#3fa9e2] transition-colors">Оптовым клиентам</a>
+              <a href="#" className="hover:text-[#3fa9e2] transition-colors">{t('footer.wholesale')}</a>
             </div>
 
             <div>
-              <p className="mb-3 text-[#4a7795]">Мы в социальных сетях</p>
+              <p className="mb-3 text-[#4a7795]">{t('footer.social')}</p>
               <div className="flex items-center space-x-3">
                 <p aria-label="Instagram" className="hover:opacity-80">
                 </p>

@@ -5,6 +5,10 @@
     
     "searchPlaceholder": "Я хочу купить...",
     "searchButton": "Найти",
+    "languages": {
+      "en": "Английский",
+      "ru": "Русский"
+    },
     "login": "Войти в личный кабинет",
     "cart": "Корзина",
     "tagline": {
@@ -27,6 +31,8 @@
       "email": "Электронный адрес",
       "password": "Пароль",
       "submit": "Войти",
+      "error": "Введите электронный адрес и пароль.",
+      "invalidEmail": "Введите корректный электронный адрес.",
       "forgotPassword": "Забыли пароль?"
     },
     "account": {
@@ -55,6 +61,47 @@
       "button" : "Смотреть"
     }
   },
+  "search": {
+    "results": "Результаты поиска",
+    "loading": "Загрузка...",
+    "empty": "Ничего не найдено",
+    "details": {
+      "sku": "Артикул",
+      "category": "Категория",
+      "brand": "Бренд",
+      "country": "Страна",
+      "color": "Цвет",
+      "material": "Материал",
+      "pendulum": "Маятник",
+      "drawer": "Ящик",
+      "yes": "Есть",
+      "no": "Нет",
+      "description": "Описание",
+      "features": "Характеристики",
+      "reviews": "Отзывы"
+    }
+  },
+  "common": {
+    "home": "Главная"
+  },
+  "register": {
+    "title": "Регистрация",
+    "name": "Имя",
+    "email": "Электронный адрес",
+    "password": "Пароль",
+    "confirmPassword": "Повторите пароль",
+    "captcha": "Вставить каптчу",
+    "agreement": "Согласие с",
+    "terms": "пользовательским соглашением",
+    "and": "и",
+    "privacy": "политикой конфиденциальности",
+    "submit": "Зарегистрироваться"
+  },
+  "reset": {
+    "title": "Восстановление пароля",
+    "email": "Ваш электронный адрес",
+    "submit": "Восстановить пароль"
+  },
   "card": {
     "products": {
       "stroller": {
@@ -68,7 +115,24 @@
     },
     "buttons": {
       "add_to_cart": "В корзину",
-      "one_click_buy": "Купить в один клик"
+      "one_click_buy": "Купить в один клик",
+      "favorite": "Добавить в избранное",
+      "productImage": "Изображение товара"
+    },
+    "category": {
+      "furniture": "Детская",
+      "furnitureType": "мебель",
+      "brands": "Baby Expert, Baby Italia и другие."
     }
+  },
+  "footer": {
+    "about": "О нас",
+    "promotions": "Акции",
+    "blog": "Блог",
+    "contacts": "Контакты",
+    "returns": "Возврат и гарантия",
+    "shipping": "Оплата и доставка",
+    "wholesale": "Оптовым клиентам",
+    "social": "Мы в социальных сетях"
   }
 }

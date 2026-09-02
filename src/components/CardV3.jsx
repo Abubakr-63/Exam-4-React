@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Zap, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function CardV3({img, text, price, onClick}) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { t } = useTranslation();
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -20,7 +22,7 @@ export default function CardV3({img, text, price, onClick}) {
 
           <button
             onClick={toggleFavorite}
-            aria-label="Добавить в избранное"
+            aria-label={t('card.buttons.favorite')}
             className="p-1.5 text-[#7CD0F7] hover:scale-110 active:scale-95 transition-transform duration-200 focus:outline-none"
           >
             <Heart
@@ -36,7 +38,7 @@ export default function CardV3({img, text, price, onClick}) {
         <div className="relative w-full aspect-square mb-6 flex items-center justify-center p-2">
           <img
             src={img}
-            alt="Коляска Riko Basic, Польша"
+            alt={t('card.buttons.productImage')}
             className="w-full h-full object-contain drop-shadow-md select-none"
             loading="lazy"
           />
@@ -57,13 +59,13 @@ export default function CardV3({img, text, price, onClick}) {
           onClick={onClick}
             className={`w-full py-3.5 px-4 rounded-2xl font-medium text-base transition-all duration-200 shadow-sm flex items-center justify-center gap-2 ${'bg-[#7CD0F7] hover:bg-[#60c4f5] active:bg-[#4bbcf3] text-white'}`}
           >
-              В корзину
+              {t('card.buttons.add_to_cart')}
           </button>
 
           <button
             className="w-full py-1 text-[#7CD0F7] hover:text-[#5EC2F2] font-medium text-base transition-colors duration-200 focus:outline-none hover:underline"
           >
-            Купить в один клик
+            {t('card.buttons.one_click_buy')}
           </button>
         </div>
 

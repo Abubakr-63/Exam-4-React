@@ -10,8 +10,9 @@ export default function ProductDetail() {
   const {id} = useParams()
   async function getProduct() {
     try {
-      const {data} = await axios.get(`${API}/${id}`);
-      console.log(data)
+      const {data: products} = await axios.get(API);
+      const product = products.find((entry) => String(entry.id) === String(id));
+      dispatch({type: 'fetch', payload: product || null});
     } catch (error) {
       console.log(error)
     }
@@ -21,11 +22,9 @@ export default function ProductDetail() {
   }, [id]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [selectedImage, setSelectedImage] = useState(
-    'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
-  );
+  const [selectedImage, setSelectedImage] = useState('');
 
-  const item = {
+  const fallbackItem = {
     id: 1,
     name: 'Кроватка детская Erbesi Incanto, Италия',
     price: 52000,
@@ -35,7 +34,7 @@ export default function ProductDetail() {
     country: 'Италия',
     brand: 'Erbesi',
     hasDrawer: true,
-    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+    image: '',
     description:
       'Элегантная итальянская кроватка премиум-класса с самоцентрирующимися колесиками и гипоаллергенным покрытием. Высокое качество сборки обеспечит комфорт и безопасность вашего ребенка.',
     features: [
@@ -66,6 +65,13 @@ export default function ProductDetail() {
       },
     ],
   };
+  const item = data.data || fallbackItem;
+
+  useEffect(() => {
+    if (data.data?.image) {
+      setSelectedImage(data.data.image);
+    }
+  }, [data.data]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 font-sans text-slate-700">
@@ -81,7 +87,7 @@ export default function ProductDetail() {
         <div className="flex flex-col items-center">
           <div className="relative group border border-slate-100 rounded-2xl p-6 bg-white w-full h-[400px] flex items-center justify-center">
             <img
-              src={selectedImage}
+              src={selectedImage || item.image}
               alt={item.name}
               className="max-h-full object-contain cursor-pointer transition-transform duration-300 group-hover:scale-105"
               onClick={() => setIsModalOpen(true)}
@@ -282,7 +288,7 @@ export default function ProductDetail() {
 
             <div className="w-full h-[65vh] flex items-center justify-center p-4">
               <img
-                src={selectedImage}
+                src={selectedImage || item.image}
                 alt={item.name}
                 className="max-w-full max-h-full object-contain"
               />

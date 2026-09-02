@@ -134,25 +134,37 @@ export default function Header({count}) {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES_KEYS[0]);
   const [loginOpen, setLoginOpen] = useState(false);
   const [accountAnchor, setAccountAnchor] = useState(null);
-  const [isAuthed, setIsAuthed] = useState(false);
+  const [authUser, setAuthUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('karapuz-auth')) || null;
+    } catch {
+      return null;
+    }
+  });
+  const isAuthed = Boolean(authUser);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
   const [data, dispatch] = useReducer(reducer, {data : []});
   const [products, setProducts] = useState([])
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
-    navigate('/searchpage');
-    console.log(search)
-    SerchProducts(search.toLowerCase().trim())
+    const value = e.target.value;
+    setSearch(value);
+    navigate(
+      value.trim()
+        ? `/searchpage?search=${encodeURIComponent(value.trim())}`
+        : '/searchpage',
+      { replace: true }
+    );
   }
-  async function SerchProducts(value) {
-    try {
-      const {data} = await axios.get(`${API}search?=${value}`);
-      setProducts(data);
-    } catch (error) {
-      console.log(error)
+
+  const submitSearch = () => {
+    const value = search.trim();
+    if (value) {
+      navigate(`/searchpage?search=${encodeURIComponent(value)}`);
     }
   }
-  console.log(products)
 
   async function getProducts() {
     try {
@@ -176,6 +188,33 @@ export default function Header({count}) {
     } else {
       setLoginOpen(true);
     }
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    if (!loginEmail.trim() || !loginPassword) {
+      setLoginError(t('header.loginDialog.error'));
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail.trim())) {
+      setLoginError(t('header.loginDialog.invalidEmail'));
+      return;
+    }
+
+    const user = { email: loginEmail.trim() };
+    localStorage.setItem('karapuz-auth', JSON.stringify(user));
+    setAuthUser(user);
+    setLoginError('');
+    setLoginEmail('');
+    setLoginPassword('');
+    setLoginOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('karapuz-auth');
+    setAuthUser(null);
+    setAccountAnchor(null);
   };
 
   const handleLanguageChange = (event) => {
@@ -251,10 +290,12 @@ export default function Header({count}) {
               <InputBase
                 value={search}
                 onChange={handleSearch}
+                onKeyDown={(e) => e.key === 'Enter' && submitSearch()}
                 placeholder={t("header.searchPlaceholder")}
                 sx={{ flex: 1, px: 1.5, py: 1, fontSize: 15 }}
               />
               <Button
+                onClick={submitSearch}
                 sx={{
                   bgcolor: "#6BC1EA",
                   color: "#fff",
@@ -288,8 +329,8 @@ export default function Header({count}) {
                 "& .MuiSelect-select": { display: "flex", alignItems: "center", py: 0.5 },
               }}
             >
-              <MenuItem value="en">English</MenuItem>
-              <MenuItem value="ru">Русский</MenuItem>
+              <MenuItem value="en">{t("header.languages.en")}</MenuItem>
+              <MenuItem value="ru">{t("header.languages.ru")}</MenuItem>
             </Select>
 
             <Box
@@ -352,12 +393,12 @@ export default function Header({count}) {
 
             <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
               {NAV_KEYS.map((elem) => (
-                <NavLink key={elem.id} to={elem.path}><MuiLink
-                  underline="none"
-                  sx={{ fontSize: 14, color: "#4A5561", "&:hover": { color: "#3FA6DB" } }}
+                <NavLink
+                  key={elem.id}
+                  to={elem.path}
+                  style={{ fontSize: 14, color: "#4A5561", textDecoration: "none" }}
                 >
                   {t(`header.nav.${elem.element}`)}
-                </MuiLink>
                 </NavLink>
               ))}
             </Box>
@@ -440,6 +481,9 @@ export default function Header({count}) {
             >
               <Search size={18} color="#9AA4AD" />
               <InputBase
+                value={search}
+                onChange={handleSearch}
+                onKeyDown={(e) => e.key === 'Enter' && submitSearch()}
                 placeholder={t("header.searchPlaceholder")}
                 sx={{ flex: 1, fontSize: 15 }}
               />
@@ -449,7 +493,7 @@ export default function Header({count}) {
       </AppBar>
 
       <Dialog open={loginOpen} onClose={() => setLoginOpen(false)} maxWidth="xs" fullWidth>
-        <DialogContent sx={{ position: "relative", p: 3 }}>
+        <DialogContent component="form" onSubmit={handleLogin} sx={{ position: "relative", p: 3 }}>
           <IconButton
             onClick={() => setLoginOpen(false)}
             sx={{ position: "absolute", top: 8, right: 8 }}
@@ -466,6 +510,9 @@ export default function Header({count}) {
             fullWidth
             variant="outlined"
             placeholder={t("header.loginDialog.email")}
+            type="email"
+            value={loginEmail}
+            onChange={(event) => setLoginEmail(event.target.value)}
             sx={{ mb: 2 }}
           />
           <TextField
@@ -473,9 +520,17 @@ export default function Header({count}) {
             variant="outlined"
             type="password"
             placeholder={t("header.loginDialog.password")}
+            value={loginPassword}
+            onChange={(event) => setLoginPassword(event.target.value)}
             sx={{ mb: 2 }}
           />
+          {loginError && (
+            <Typography color="error" sx={{ fontSize: 13, mb: 1.5 }}>
+              {loginError}
+            </Typography>
+          )}
           <Button
+            type="submit"
             fullWidth
             variant="contained"
             sx={{
@@ -525,7 +580,7 @@ export default function Header({count}) {
               {t("header.account.name")}
             </Typography>
             <Typography sx={{ fontSize: 13, color: "#9AA4AD" }}>
-              {t("header.account.email")}
+              {authUser?.email || t("header.account.email")}
             </Typography>
           </Box>
         </Box>
@@ -543,7 +598,7 @@ export default function Header({count}) {
           {t("header.account.settings")}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => setAccountAnchor(null)} sx={{ gap: 1.5, py: 1.25 }}>
+        <MenuItem onClick={handleLogout} sx={{ gap: 1.5, py: 1.25 }}>
           <LogOut size={18} />
           {t("header.account.logout")}
         </MenuItem>
@@ -662,8 +717,8 @@ export default function Header({count}) {
                 "& .MuiSvgIcon-root": { color: "#FFFFFF" },
               }}
             >
-              <MenuItem value="en">English</MenuItem>
-              <MenuItem value="ru">Русский</MenuItem>
+              <MenuItem value="en">{t("header.languages.en")}</MenuItem>
+              <MenuItem value="ru">{t("header.languages.ru")}</MenuItem>
             </Select>
           </Box>
         </Box>

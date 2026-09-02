@@ -1,18 +1,20 @@
 import React from 'react';
 import { promotionsData } from '../backend/api';
 import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export default function Sale() {
+  const { t } = useTranslation();
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 font-sans text-slate-700">
       <nav className="text-xs text-slate-400 mb-3 flex items-center gap-2">
-        <a href="#" className="hover:underline">Главная</a>
+        <a href="#" className="hover:underline">{t('common.home')}</a>
         <span>•</span>
-        <span>Акции</span>
+        <span>{t('header.nav.promotions')}</span>
       </nav>
 
       <h1 className="text-3xl font-bold text-[#1f354d] mb-6">
-        Акции
+        {t('header.nav.promotions')}
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">

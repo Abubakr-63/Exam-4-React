@@ -3,6 +3,7 @@ import { reducer } from '../reducer/todo';
 import axios from 'axios';
 import { API } from '../backend/api';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const MAIN_PRODUCTS = [
   {
@@ -64,6 +65,7 @@ const CATEGORIES = [
 ];
 
 export default function KidsFurnitureCatalog() {
+  const { t } = useTranslation();
   const [length, setLength] = useState(12)
   const navigate = useNavigate();
   const [data, dispatch] = useReducer(reducer, {data : []});
@@ -83,12 +85,12 @@ export default function KidsFurnitureCatalog() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 font-sans text-slate-700">
       <div className="text-xs text-slate-400 mb-4 space-x-2">
-        <span>Каталог</span>
+        <span>{t('header.catalog')}</span>
         <span>•</span>
-        <span className="text-slate-600">Детская мебель</span>
+        <span className="text-slate-600">{t('card.category.furniture')} {t('card.category.furnitureType')}</span>
       </div>
 
-      <h1 className="text-3xl font-bold text-slate-800 mb-8">Детская мебель</h1>
+      <h1 className="text-3xl font-bold text-slate-800 mb-8">{t('card.category.furniture')} {t('card.category.furnitureType')}</h1>
 
       <div className="flex flex-col md:flex-row gap-8">
         <aside className="w-full md:w-56 flex-shrink-0">

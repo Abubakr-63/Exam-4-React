@@ -10,10 +10,10 @@ export default function CatalogWithFilters() {
   const [length, setLength] = useState(12)
 
   const [filters, setFilters] = useState({
-    priceFrom: '10 000',
-    priceTo: '200 000',
-    brands: ['Anex'],
-    colors: ['Белый'],
+    priceFrom: '',
+    priceTo: '',
+    brands: [],
+    colors: [],
     materials: [],
     mechanisms: [],
     hasDrawer: null,
@@ -22,7 +22,6 @@ export default function CatalogWithFilters() {
   async function getProducts() {
     try {
       const { data } = await axios.get(API);
-      console.log(data)
       dispatch({ type: 'fetch', payload: data });
     } catch (error) {
       console.log(error);
@@ -50,8 +49,36 @@ export default function CatalogWithFilters() {
     setFilters((prev) => ({
       ...prev,
       [category]: prev[category].filter((item) => item !== value),
-    }));ч
+    }));
   };
+
+  const normalize = (value) => String(value ?? '').toLowerCase().trim();
+  const priceValue = (value) => Number(String(value ?? '').replace(/[^0-9]/g, '')) || 0;
+  const matchesSelected = (productValue, selectedValues) => {
+    if (!selectedValues.length) return true;
+    const normalizedProductValue = normalize(productValue);
+    return selectedValues.some((value) => {
+      const normalizedValue = normalize(value);
+      return normalizedProductValue === normalizedValue || normalizedProductValue.includes(normalizedValue);
+    });
+  };
+
+  const filteredProducts = products.data.filter((product) => {
+    const from = priceValue(filters.priceFrom);
+    const to = priceValue(filters.priceTo);
+    const price = priceValue(product.price);
+    const material = product.material;
+    const hasDrawer = product.hasDrawer;
+
+    return (
+      (!from || price >= from) &&
+      (!to || price <= to) &&
+      matchesSelected(product.brand, filters.brands) &&
+      matchesSelected(product.color, filters.colors) &&
+      matchesSelected(material, filters.materials) &&
+      (filters.hasDrawer === null || hasDrawer === filters.hasDrawer)
+    );
+  });
 
   const clearAllFilters = () => {
     setFilters({
@@ -129,7 +156,7 @@ export default function CatalogWithFilters() {
               className="w-full p-2 border border-slate-200 rounded text-xs mb-3 focus:outline-none focus:border-sky-400"
             />
             <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
-              {['Anex (Польша)', 'Bicapa', 'Casa Baby', 'Gandylyan', 'Riko', 'Kidy'].map((brand) => (
+              {['Anex', 'Bicapa', 'Casa Baby', 'Gandylyan', 'Riko', 'Kidy', 'Erbesi'].map((brand) => (
                 <label key={brand} className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
                   <input
                     type="checkbox"
@@ -163,7 +190,7 @@ export default function CatalogWithFilters() {
           <div>
             <span className="font-semibold text-slate-800 block mb-2">Материал</span>
             <div className="space-y-2">
-              {['Бук', 'Береза', 'МДФ', 'Сосна'].map((mat) => (
+              {['бук', 'береза', 'МДФ', 'сосна'].map((mat) => (
                 <label key={mat} className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
                   <input
                     type="checkbox"
@@ -184,6 +211,7 @@ export default function CatalogWithFilters() {
                 <input
                   type="radio"
                   name="drawer"
+                  checked={filters.hasDrawer === true}
                   onChange={() => setFilters({ ...filters, hasDrawer: true })}
                   className="text-sky-400 focus:ring-sky-400"
                 />
@@ -193,6 +221,7 @@ export default function CatalogWithFilters() {
                 <input
                   type="radio"
                   name="drawer"
+                  checked={filters.hasDrawer === false}
                   onChange={() => setFilters({ ...filters, hasDrawer: false })}
                   className="text-sky-400 focus:ring-sky-400"
                 />
@@ -208,7 +237,7 @@ export default function CatalogWithFilters() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {products.data.slice(0, length).map((product) => (
+            {filteredProducts.slice(0, length).map((product) => (
               <div onClick={() => navigate(`/productdetail/${product.id}`)} key={product.id} className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm relative flex flex-col justify-between">
                 <button className="absolute top-4 right-4 text-slate-300 hover:text-red-400">
                   ♥
